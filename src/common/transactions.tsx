@@ -1,28 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { transactions$ } from "@/utils/store";
+import { enableReactUse } from "@legendapp/state/config/enableReactUse";
+
+enableReactUse(); // This adds the use() function to observables
 
 function TransactionList() {
-  const [transactions] = useState([
-    {
-      hash: "0x123",
-      timeStamp: "1633029440",
-      from: "0xabc",
-      to: "0xdef",
-      value: "100",
-      tokenName: "Token1",
-      tokenSymbol: "T1",
-    },
-    {
-      hash: "0x456",
-      timeStamp: "1633029450",
-      from: "0xghi",
-      to: "0xjkl",
-      value: "200",
-      tokenName: "Token2",
-      tokenSymbol: "T2",
-    },
-  ]);
+  const transactions = transactions$.use();
 
   return (
     <div>

@@ -30,7 +30,20 @@ const networks$ = observable([
     blockExplorer: "https://bscscan.com",
   },
 ]);
-
+const transactions$ = observable([
+  {
+    timeStamp: new Date().getTime().toString(),
+    hash: "0xFakeHash",
+    from: "0xFakeFrom",
+    to: "0xFakeTo",
+    value: "1",
+    contractAddress: "0xFakeContractAddress",
+    tokenName: "FakeTokenName",
+    tokenSymbol: "FakeTokenSymbol",
+    tokenDecimal: "18",
+    network: "Ethereum",
+  },
+]);
 configureObservablePersistence({
   pluginLocal: ObservablePersistLocalStorage,
 });
@@ -43,5 +56,8 @@ persistObservable(logs$, {
 persistObservable(networks$, {
   local: "networks", // Unique name
 });
+persistObservable(transactions$, {
+  local: "transactions", // Unique name
+});
 
-export { addresses$, logs$, networks$ };
+export { addresses$, logs$, networks$, transactions$ };
