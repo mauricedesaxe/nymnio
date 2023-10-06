@@ -43,8 +43,8 @@ function Controls() {
         let localNormalTx: z.infer<typeof normalTxSchema>[] = [];
         try {
           localNormalTx = await fetchNormalTransactions(
-            address.address,
-            network.key
+            `${network.api}?apikey=${network.key}`,
+            address.address
           );
         } catch (e) {
           logs$.set((logs) => [
@@ -58,8 +58,8 @@ function Controls() {
         let localERC20Tx: z.infer<typeof erc20TxSchema>[] = [];
         try {
           localERC20Tx = await fetchERC20Transactions(
-            address.address,
-            network.key
+            `${network.api}?apikey=${network.key}`,
+            address.address
           );
         } catch (e) {
           logs$.set((logs) => [
