@@ -17,7 +17,7 @@ function AddressList() {
         Add the addresses you want to track. You can add as many as you want.
       </p>
       <button
-        className="my-2 p-2 bg-blue-500 hover:bg-blue-600 rounded font-medium"
+        className="mr-2 my-2 p-2 bg-blue-500 hover:bg-blue-600 rounded font-medium"
         onClick={() =>
           addresses$.set((addresses) => [
             ...addresses,
@@ -26,6 +26,12 @@ function AddressList() {
         }
       >
         Add Address
+      </button>
+      <button
+        className="my-2 p-2 bg-red-500 hover:bg-red-600 rounded font-medium"
+        onClick={() => addresses$.set([{ id: 1, address: "" }])}
+      >
+        Clear Addresses
       </button>
       {addresses.map((address) => (
         <div key={address.id}>

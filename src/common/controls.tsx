@@ -107,19 +107,6 @@ function Controls() {
         <button className="w-full mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
           3. b. Process reports
         </button>
-        <button
-          onClick={() => {
-            // TODO make sure to always update this with any new observables
-            logs$.set([""]);
-            addresses$.set([{ id: 1, address: "" }]);
-            networks$.set((networks) =>
-              networks.map((network) => ({ ...network, key: "" }))
-            );
-          }}
-          className="w-full mt-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Clear data
-        </button>
       </div>
     </div>
   );

@@ -15,6 +15,16 @@ function ApiKeyList() {
         We will use these API keys to fetch data about your addresses. Leave
         them empty if you will, but you may run into rate limits.
       </p>
+      <button
+        className="my-2 p-2 bg-red-500 hover:bg-red-600 rounded font-medium"
+        onClick={() => {
+          networks$.set((networks) =>
+            networks.map((network) => ({ ...network, key: "" }))
+          );
+        }}
+      >
+        Clear API Keys
+      </button>
       {networks.map((network) => (
         <div className="w-full mt-4" key={network.id}>
           <div className="w-24 inline-block border border-gray-300 rounded-l-md px-3 py-2 bg-gray-800 text-white">
