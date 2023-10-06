@@ -5,7 +5,7 @@ import {
   normalTxSchema,
   erc20TxSchema,
 } from "@/utils/fetch";
-import { addresses$, endpoints$, logs$ } from "@/utils/store";
+import { addresses$, apiKeys$, logs$ } from "@/utils/store";
 import { z } from "zod";
 
 function Controls() {
@@ -16,16 +16,16 @@ function Controls() {
     ]);
 
     const addresses = addresses$.get();
-    const endpoints = endpoints$.get();
+    const apiKeys = apiKeys$.get();
 
     const normalTx: z.infer<typeof normalTxSchema>[] = [];
     const ERC20Tx: z.infer<typeof erc20TxSchema>[] = [];
 
-    // Only proceed if there are valid addresses and endpoints
+    // Only proceed if there are valid addresses and apiKeys
     const validAddresses = addresses.filter(
       (address) => address.address !== ""
     );
-    const validEndpoints = endpoints.filter((endpoint) => endpoint.url !== "");
+    const validApiKeys = apiKeys.filter((apiKey) => apiKey.key !== "");
     if (validAddresses.length === 0) {
       logs$.set((logs) => [
         ...logs,
@@ -33,21 +33,18 @@ function Controls() {
       ]);
       return;
     }
-    if (validEndpoints.length === 0) {
-      logs$.set((logs) => [
-        ...logs,
-        `[${new Date()}] No valid endpoints found`,
-      ]);
+    if (validApiKeys.length === 0) {
+      logs$.set((logs) => [...logs, `[${new Date()}] No valid apiKeys found`]);
       return;
     }
 
-    // Loop through all addresses and endpoints
+    // Loop through all addresses and apiKeys
     for (const address of addresses) {
       if (address.address === "") {
         continue;
       }
-      for (const endpoint of endpoints) {
-        if (endpoint.url === "") {
+      for (const apiKey of apiKeys) {
+        if (apiKey.key === "") {
           continue;
         }
 
@@ -56,7 +53,7 @@ function Controls() {
         try {
           localNormalTx = await fetchNormalTransactions(
             address.address,
-            endpoint.url
+            apiKey.key
           );
         } catch (e) {
           logs$.set((logs) => [
@@ -71,7 +68,7 @@ function Controls() {
         try {
           localERC20Tx = await fetchERC20Transactions(
             address.address,
-            endpoint.url
+            apiKey.key
           );
         } catch (e) {
           logs$.set((logs) => [
@@ -124,7 +121,7 @@ function Controls() {
             // TODO make sure to always update this with any new observables
             logs$.set([""]);
             addresses$.set([{ id: 1, address: "" }]);
-            endpoints$.set([{ id: 1, url: "" }]);
+            apiKeys$.set([{ id: 1, key: "" }]);
           }}
           className="w-full mt-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
         >

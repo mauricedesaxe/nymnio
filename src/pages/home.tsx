@@ -1,6 +1,6 @@
 import AddressList from "@/common/addresses";
+import ApiKeyList from "@/common/apiKeys";
 import Controls from "@/common/controls";
-import EndpointList from "@/common/endpoints";
 import { AppInfo, CreatorInfo, DataInfo } from "@/common/info";
 import Metrics from "@/common/metrics";
 import ReportList from "@/common/reports";
@@ -20,7 +20,7 @@ export default function Home() {
             <div className="border-b border-gray-500 my-4" />
 
             <div className="h-96 overflow-y-auto p-2 pr-4 bg-gray-950 rounded">
-              <EndpointList />
+              <ApiKeyList />
             </div>
             <div className="border-b border-gray-500 my-4" />
           </aside>
