@@ -5,7 +5,7 @@ import {
   normalTxSchema,
   erc20TxSchema,
 } from "@/utils/fetch";
-import { addresses$, apiKeys$, logs$ } from "@/utils/store";
+import { addresses$, networks$, logs$ } from "@/utils/store";
 import { z } from "zod";
 
 function Controls() {
@@ -16,7 +16,7 @@ function Controls() {
     ]);
 
     const addresses = addresses$.get();
-    const apiKeys = apiKeys$.get();
+    const networks = networks$.get();
 
     const normalTx: z.infer<typeof normalTxSchema>[] = [];
     const ERC20Tx: z.infer<typeof erc20TxSchema>[] = [];
@@ -25,7 +25,7 @@ function Controls() {
     const validAddresses = addresses.filter(
       (address) => address.address !== ""
     );
-    const validApiKeys = apiKeys.filter((apiKey) => apiKey.key !== "");
+    const validApiKeys = networks.filter((network) => network.key !== "");
     if (validAddresses.length === 0) {
       logs$.set((logs) => [
         ...logs,
@@ -43,7 +43,7 @@ function Controls() {
       if (address.address === "") {
         continue;
       }
-      for (const apiKey of apiKeys) {
+      for (const apiKey of networks) {
         if (apiKey.key === "") {
           continue;
         }
@@ -121,7 +121,9 @@ function Controls() {
             // TODO make sure to always update this with any new observables
             logs$.set([""]);
             addresses$.set([{ id: 1, address: "" }]);
-            apiKeys$.set([{ id: 1, key: "" }]);
+            networks$.set((networks) =>
+              networks.map((network) => ({ ...network, key: "" }))
+            );
           }}
           className="w-full mt-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
         >
