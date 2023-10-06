@@ -51,7 +51,6 @@ async function fetchNormalTransactions(
     const response = await axios.get(
       `${endpoint}&module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&page=${page}&offset=10&sort=asc`
     );
-    console.log("response", response);
     const validatedResponse = normalTxResponseSchema.parse(response.data);
 
     if (validatedResponse.status !== "1") {
