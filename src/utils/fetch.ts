@@ -43,8 +43,6 @@ async function fetchNormalTransactions(
   const results = [];
 
   while (true) {
-    const startTime = Date.now();
-
     const response = await axios.get(
       `${endpoint}&module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&page=${page}&offset=10&sort=asc`
     );
@@ -64,12 +62,7 @@ async function fetchNormalTransactions(
 
     // free etherscan has a rate limit of 5 requests per second, so we need to wait
     // a certain amount of time between requests to avoid getting rate limited.
-    // we calculate the time it took to make the request and subtract it from the
-    // timeout to get the amount of time we need to wait, if any.
-    const delay = timeout - (Date.now() - startTime);
-    if (delay > 0) {
-      await new Promise((resolve) => setTimeout(resolve, delay));
-    }
+    await new Promise((resolve) => setTimeout(resolve, timeout));
   }
 
   return results;
@@ -132,8 +125,6 @@ async function fetchERC20Transactions(
   const results = [];
 
   while (true) {
-    const startTime = Date.now();
-
     const response = await axios.get(
       `${endpoint}&module=account&action=tokentx&address=${address}&page=${page}&offset=1000&contractaddress=${contractAddress}`
     );
@@ -153,12 +144,7 @@ async function fetchERC20Transactions(
 
     // free etherscan has a rate limit of 5 requests per second, so we need to wait
     // a certain amount of time between requests to avoid getting rate limited.
-    // we calculate the time it took to make the request and subtract it from the
-    // timeout to get the amount of time we need to wait, if any.
-    const delay = timeout - (Date.now() - startTime);
-    if (delay > 0) {
-      await new Promise((resolve) => setTimeout(resolve, delay));
-    }
+    await new Promise((resolve) => setTimeout(resolve, timeout));
   }
 
   return results;
