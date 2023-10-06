@@ -37,7 +37,7 @@ function ApiKeyList() {
                 return;
               }
 
-              const keyPattern = /^[A-Z0-9]{40}$/;
+              const keyPattern = /^[A-Z0-9]*$/;
               if (!keyPattern.test(e.target.value)) {
                 alert("Invalid API Key format");
                 networks$.set((networks) =>
