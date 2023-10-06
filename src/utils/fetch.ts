@@ -46,7 +46,7 @@ async function fetchNormalTransactions(
     const startTime = Date.now();
 
     const response = await axios.get(
-      `${endpoint}&module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&page=${page}&offset=10&sort=asc&apikey=YourApiKeyToken`
+      `${endpoint}&module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&page=${page}&offset=10&sort=asc`
     );
     const validatedResponse = normalTxResponseSchema.parse(response.data);
 
