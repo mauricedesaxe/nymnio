@@ -1,3 +1,5 @@
+import { addresses$, endpoints$, logs$ } from "@/utils/store";
+
 function Controls() {
   return (
     <div>
@@ -12,7 +14,15 @@ function Controls() {
         <button className="w-full mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
           Process reports
         </button>
-        <button className="w-full mt-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+        <button
+          onClick={() => {
+            // TODO make sure to always update this with any new observables
+            logs$.set([""]);
+            addresses$.set([{ id: 1, address: "" }]);
+            endpoints$.set([{ id: 1, url: "" }]);
+          }}
+          className="w-full mt-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+        >
           Clear data
         </button>
       </div>
