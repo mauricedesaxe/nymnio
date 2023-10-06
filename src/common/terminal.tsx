@@ -10,7 +10,7 @@ function Terminal() {
 
   return (
     <div>
-      <h2 className="text-2xl font-semibold">4. See live logs of processing</h2>
+      <h2 className="text-2xl font-semibold">4. See live logs.</h2>
       <p className="text-gray-400 text-sm">
         This is the terminal. You can use it to see the logs and errors.
       </p>
