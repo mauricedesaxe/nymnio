@@ -9,7 +9,7 @@ import { z } from "zod";
  * The process continues until there are no more transactions to fetch.
  */
 
-const normalTxSchema = z.object({
+export const normalTxSchema = z.object({
   timeStamp: z.string(),
   hash: z.string(),
   from: z.string(),
@@ -96,7 +96,7 @@ function filterNormalTransactions(
  * The process continues until there are no more transactions to fetch.
  */
 
-const erc20TxSchema = z.object({
+export const erc20TxSchema = z.object({
   timeStamp: z.string(),
   hash: z.string(),
   from: z.string(),
