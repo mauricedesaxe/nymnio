@@ -29,13 +29,6 @@ const networks$ = observable([
     key: "",
     blockExplorer: "https://bscscan.com",
   },
-  {
-    name: "Optimism",
-    id: 10,
-    api: "https://mainnet.optimism.io/api",
-    key: "",
-    blockExplorer: "https://optimistic.etherscan.io",
-  },
 ]);
 
 configureObservablePersistence({
