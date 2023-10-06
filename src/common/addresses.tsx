@@ -17,7 +17,7 @@ configureObservablePersistence({
   pluginLocal: ObservablePersistLocalStorage,
 });
 persistObservable(addresses$, {
-  local: "endpoints", // Unique name
+  local: "addresses", // Unique name
 });
 
 function AddressList() {
