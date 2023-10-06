@@ -38,13 +38,13 @@ function Controls() {
       if (address.address === "") {
         continue;
       }
-      for (const apiKey of networks) {
+      for (const network of networks) {
         // first get normal transactions
         let localNormalTx: z.infer<typeof normalTxSchema>[] = [];
         try {
           localNormalTx = await fetchNormalTransactions(
             address.address,
-            apiKey.key
+            network.key
           );
         } catch (e) {
           logs$.set((logs) => [
@@ -59,7 +59,7 @@ function Controls() {
         try {
           localERC20Tx = await fetchERC20Transactions(
             address.address,
-            apiKey.key
+            network.key
           );
         } catch (e) {
           logs$.set((logs) => [
