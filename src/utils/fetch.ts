@@ -42,6 +42,7 @@ async function fetchNormalTransactions(
   let page = 1;
   const results = [];
 
+  // eslint-disable-next-line no-constant-condition
   while (true) {
     const response = await axios.get(
       `${endpoint}&module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&page=${page}&offset=10&sort=asc`
@@ -124,6 +125,7 @@ async function fetchERC20Transactions(
   let page = 1;
   const results = [];
 
+  // eslint-disable-next-line no-constant-condition
   while (true) {
     const response = await axios.get(
       `${endpoint}&module=account&action=tokentx&address=${address}&page=${page}&offset=1000&contractaddress=${contractAddress}`
