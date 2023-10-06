@@ -7,6 +7,7 @@ import { ObservablePersistLocalStorage } from "@legendapp/state/persist-plugins/
 
 const addresses$ = observable([{ id: 1, address: "" }]);
 const endpoints$ = observable([{ id: 1, url: "" }]);
+const logs$ = observable([""]);
 
 configureObservablePersistence({
   pluginLocal: ObservablePersistLocalStorage,
@@ -17,5 +18,8 @@ persistObservable(addresses$, {
 persistObservable(endpoints$, {
   local: "endpoints", // Unique name
 });
+persistObservable(logs$, {
+  local: "logs", // Unique name
+});
 
-export { addresses$, endpoints$ };
+export { addresses$, endpoints$, logs$ };

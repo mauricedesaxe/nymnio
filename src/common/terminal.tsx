@@ -1,18 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { logs$ } from "@/utils/store";
+import { enableReactUse } from "@legendapp/state/config/enableReactUse";
+
+enableReactUse(); // This adds the use() function to observables
 
 function Terminal() {
-  const [logs] = useState([
-    "2021-10-01T00:00:00.000Z: Started fetching transactions.",
-    "2021-10-02T00:00:00.000Z: Transactions fetched successfully.",
-    "2021-10-03T00:00:00.000Z: Started generating reports.",
-    "2021-10-04T00:00:00.000Z: Reports generating successfully.",
-    "2021-10-05T00:00:00.000Z: Started fetching addresses.",
-    "2021-10-06T00:00:00.000Z: Addresses fetched successfully.",
-    "2021-10-07T00:00:00.000Z: Started generating metrics.",
-    "2021-10-08T00:00:00.000Z: Metrics generated successfully.",
-  ]);
+  const logs = logs$.use();
 
   return (
     <div>
