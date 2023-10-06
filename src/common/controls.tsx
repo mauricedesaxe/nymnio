@@ -47,6 +47,10 @@ function Controls() {
             address.address
           );
         } catch (e) {
+          console.log(
+            `[${new Date()}] Error fetching normal transactions: `,
+            e
+          );
           logs$.set((logs) => [
             ...logs,
             `[${new Date()}] Error fetching normal transactions: ${e}`,
@@ -62,6 +66,7 @@ function Controls() {
             address.address
           );
         } catch (e) {
+          console.log(`[${new Date()}] Error fetching ERC20 transactions: `, e);
           logs$.set((logs) => [
             ...logs,
             `[${new Date()}] Error fetching ERC20 transactions: ${e}`,
