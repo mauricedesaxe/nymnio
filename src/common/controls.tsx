@@ -93,7 +93,7 @@ function Controls() {
 
   return (
     <div>
-      <h2 className="text-2xl font-semibold">3. Get & process data</h2>
+      <h2 className="text-2xl font-semibold">3. Get data.</h2>
       <p className="text-gray-400 text-sm">
         You can use this panel to manage your data.
       </p>
