@@ -42,10 +42,12 @@ function AddressList() {
               );
             }}
             onBlur={(e) => {
-              if (e.target.value === "" && addresses.length > 1) {
-                addresses$.set((addresses) =>
-                  addresses.filter((a) => a.id !== address.id)
-                );
+              if (e.target.value === "") {
+                if (addresses.length > 1) {
+                  addresses$.set((addresses) =>
+                    addresses.filter((a) => a.id !== address.id)
+                  );
+                }
                 return;
               }
 
