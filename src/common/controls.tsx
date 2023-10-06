@@ -80,6 +80,7 @@ function Controls() {
 
     // store the data
     const mergedTransactions = [...normalTx, ...ERC20Tx];
+    console.log("mergedTransactions", mergedTransactions);
     logs$.set((logs) => [
       ...logs,
       `[${new Date()}] Fetched ${normalTx.length} normal transactions`,
@@ -89,7 +90,6 @@ function Controls() {
       `[${new Date()}] Fetched ${ERC20Tx.length} ERC20 transactions`,
     ]);
     // TODO store here
-    console.log("mergedTransactions", mergedTransactions);
     logs$.set((logs) => [
       ...logs,
       `[${new Date()}] Stored ${mergedTransactions.length} transactions`,
