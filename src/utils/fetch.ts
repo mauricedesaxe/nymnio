@@ -44,9 +44,14 @@ async function fetchNormalTransactions(
 
   // eslint-disable-next-line no-constant-condition
   while (true) {
+    // free etherscan has a rate limit of 5 requests per second, so we need to wait
+    // a certain amount of time between requests to avoid getting rate limited.
+    await new Promise((resolve) => setTimeout(resolve, timeout));
+
     const response = await axios.get(
       `${endpoint}&module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&page=${page}&offset=10&sort=asc`
     );
+    console.log("response", response);
     const validatedResponse = normalTxResponseSchema.parse(response.data);
 
     if (validatedResponse.status !== "1") {
@@ -60,10 +65,6 @@ async function fetchNormalTransactions(
     }
 
     page += 1;
-
-    // free etherscan has a rate limit of 5 requests per second, so we need to wait
-    // a certain amount of time between requests to avoid getting rate limited.
-    await new Promise((resolve) => setTimeout(resolve, timeout));
   }
 
   return results;
@@ -127,6 +128,10 @@ async function fetchERC20Transactions(
 
   // eslint-disable-next-line no-constant-condition
   while (true) {
+    // free etherscan has a rate limit of 5 requests per second, so we need to wait
+    // a certain amount of time between requests to avoid getting rate limited.
+    await new Promise((resolve) => setTimeout(resolve, timeout));
+
     const response = await axios.get(
       `${endpoint}&module=account&action=tokentx&address=${address}&page=${page}&offset=1000&contractaddress=${contractAddress}`
     );
@@ -143,10 +148,6 @@ async function fetchERC20Transactions(
     }
 
     page += 1;
-
-    // free etherscan has a rate limit of 5 requests per second, so we need to wait
-    // a certain amount of time between requests to avoid getting rate limited.
-    await new Promise((resolve) => setTimeout(resolve, timeout));
   }
 
   return results;
