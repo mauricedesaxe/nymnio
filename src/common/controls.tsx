@@ -25,16 +25,11 @@ function Controls() {
     const validAddresses = addresses.filter(
       (address) => address.address !== ""
     );
-    const validApiKeys = networks.filter((network) => network.key !== "");
     if (validAddresses.length === 0) {
       logs$.set((logs) => [
         ...logs,
         `[${new Date()}] No valid addresses found`,
       ]);
-      return;
-    }
-    if (validApiKeys.length === 0) {
-      logs$.set((logs) => [...logs, `[${new Date()}] No valid apiKeys found`]);
       return;
     }
 
@@ -44,10 +39,6 @@ function Controls() {
         continue;
       }
       for (const apiKey of networks) {
-        if (apiKey.key === "") {
-          continue;
-        }
-
         // first get normal transactions
         let localNormalTx: z.infer<typeof normalTxSchema>[] = [];
         try {
