@@ -31,13 +31,13 @@ const normalTxResponseSchema = z.object({
  *
  * @param endpoint expected to look like https://api.etherscan.io/api?apiKey=YourApiKeyToken
  * @param address the address to fetch transactions for (must be an ERC20 contract)
- * @param timeout the timeout between requests in milliseconds (default 333) - free etherscan has a rate limit of 5 requests per second
+ * @param timeout the timeout between requests in milliseconds (default 500) - free etherscan has a rate limit of 5 requests per second
  * @returns a list of normal transactions
  */
 async function fetchNormalTransactions(
   endpoint: string,
   address: string,
-  timeout = 333
+  timeout = 500
 ) {
   let page = 1;
   const results = [];
@@ -113,14 +113,14 @@ const erc20ResponseSchema = z.object({
  *
  * @param endpoint expected to look like https://api.etherscan.io/api?apiKey=YourApiKeyToken
  * @param address the address to fetch transactions for (must be an ERC20 contract)
- * @param timeout the timeout between requests in milliseconds (default 333) - free etherscan has a rate limit of 5 requests per second
+ * @param timeout the timeout between requests in milliseconds (default 500) - free etherscan has a rate limit of 5 requests per second
  * @param contractAddress the address of the ERC20 contract (optional)
  * @returns a list of ERC20 transactions
  */
 async function fetchERC20Transactions(
   endpoint: string,
   address: string,
-  timeout = 333,
+  timeout = 500,
   contractAddress?: string
 ) {
   let page = 1;
