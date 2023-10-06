@@ -76,6 +76,23 @@ export default function Home() {
               <CreatorInfo />
             </div>
             <div className="border-b border-gray-500 my-4" />
+
+            <button
+              onClick={() => {
+                if (
+                  !window.confirm(
+                    "Are you sure you want to clear local storage?"
+                  )
+                ) {
+                  return;
+                }
+                localStorage.clear();
+                window.location.reload();
+              }}
+              className="my-2 p-2 text-red-500 hover:text-red-50 hover:bg-red-600 rounded font-medium"
+            >
+              Clear local storage
+            </button>
           </aside>
         </div>
       </div>
