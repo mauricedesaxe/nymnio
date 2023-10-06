@@ -2,23 +2,9 @@
 
 import { ethers } from "ethers";
 import { enableReactUse } from "@legendapp/state/config/enableReactUse";
-import { observable } from "@legendapp/state";
-import {
-  configureObservablePersistence,
-  persistObservable,
-} from "@legendapp/state/persist";
-import { ObservablePersistLocalStorage } from "@legendapp/state/persist-plugins/local-storage";
+import { addresses$ } from "@/utils/store";
 
 enableReactUse(); // This adds the use() function to observables
-
-const addresses$ = observable([{ id: 1, address: "" }]);
-
-configureObservablePersistence({
-  pluginLocal: ObservablePersistLocalStorage,
-});
-persistObservable(addresses$, {
-  local: "addresses", // Unique name
-});
 
 function AddressList() {
   // only use for reading

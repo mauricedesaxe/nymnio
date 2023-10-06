@@ -1,23 +1,9 @@
 "use client";
 
 import { enableReactUse } from "@legendapp/state/config/enableReactUse";
-import { observable } from "@legendapp/state";
-import {
-  configureObservablePersistence,
-  persistObservable,
-} from "@legendapp/state/persist";
-import { ObservablePersistLocalStorage } from "@legendapp/state/persist-plugins/local-storage";
+import { endpoints$ } from "@/utils/store";
 
 enableReactUse(); // This adds the use() function to observables
-
-const endpoints$ = observable([{ id: 1, url: "" }]);
-
-configureObservablePersistence({
-  pluginLocal: ObservablePersistLocalStorage,
-});
-persistObservable(endpoints$, {
-  local: "endpoints", // Unique name
-});
 
 function EndpointList() {
   // only use for reading
