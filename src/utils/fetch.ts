@@ -51,7 +51,12 @@ async function fetchNormalTransactions(
     const response = await axios.get(
       `${endpoint}&module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&page=${page}&offset=10&sort=asc`
     );
-    const validatedResponse = normalTxResponseSchema.parse(response.data);
+    const validation = normalTxResponseSchema.safeParse(response.data);
+    if (!validation.success) {
+      console.log(validation.error);
+      break;
+    }
+    const validatedResponse = validation.data;
 
     if (validatedResponse.status !== "1") {
       break;
@@ -134,7 +139,12 @@ async function fetchERC20Transactions(
     const response = await axios.get(
       `${endpoint}&module=account&action=tokentx&address=${address}&page=${page}&offset=1000&contractaddress=${contractAddress}`
     );
-    const validatedResponse = erc20ResponseSchema.parse(response.data);
+    const validation = erc20ResponseSchema.safeParse(response.data);
+    if (!validation.success) {
+      console.log(validation.error);
+      break;
+    }
+    const validatedResponse = validation.data;
 
     if (validatedResponse.status !== "1") {
       break;
