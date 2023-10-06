@@ -55,7 +55,7 @@ async function fetchNormalTransactions(
     const validatedResponse = normalTxResponseSchema.parse(response.data);
 
     if (validatedResponse.status !== "1") {
-      throw new Error("API request failed");
+      break;
     }
 
     results.push(...validatedResponse.result);
@@ -138,7 +138,7 @@ async function fetchERC20Transactions(
     const validatedResponse = erc20ResponseSchema.parse(response.data);
 
     if (validatedResponse.status !== "1") {
-      throw new Error("API request failed");
+      break;
     }
 
     results.push(...validatedResponse.result);
