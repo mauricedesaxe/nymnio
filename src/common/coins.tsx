@@ -127,6 +127,15 @@ function Modal() {
       const selectedToken = tokens.find((t) => t.id == ui.selectedTokenId);
       if (!selectedToken) return;
       setFormToken(selectedToken);
+    } else {
+      setFormToken({
+        id: 0,
+        network: "",
+        address: "",
+        decimals: "",
+        name: "",
+        symbol: "",
+      });
     }
   }, [tokens, ui]);
 
