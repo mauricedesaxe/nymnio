@@ -16,6 +16,8 @@ import {
 import { z } from "zod";
 
 function Controls() {
+  const isTxLoading = isTxLoading$.use();
+
   async function handleGetTransactions() {
     isTxLoading$.set(true);
 
@@ -168,11 +170,19 @@ function Controls() {
       <div>
         <button
           onClick={handleGetTransactions}
-          className="w-full mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className={`w-full mt-2 bg-blue-500 ${
+            isTxLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-700"
+          } text-white font-bold py-2 px-4 rounded`}
+          disabled={isTxLoading}
         >
           3. a. Get transactions
         </button>
-        <button className="w-full mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <button
+          className={`w-full mt-2 bg-blue-500 ${
+            isTxLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-700"
+          } text-white font-bold py-2 px-4 rounded`}
+          disabled={isTxLoading}
+        >
           3. b. Process reports
         </button>
       </div>
