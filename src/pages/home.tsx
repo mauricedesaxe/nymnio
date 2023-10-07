@@ -14,12 +14,12 @@ export default function Home() {
         <div className="h-full w-full grid grid-cols-1 lg:grid-cols-4 gap-4">
           <aside className="col-span-1">
             {/* Left column area */}
-            <div className="h-96 overflow-y-auto p-2 pr-4 bg-gray-950 rounded">
+            <div className="max-h-96 overflow-y-auto p-2 pr-4 bg-gray-950 rounded">
               <AddressList />
             </div>
             <div className="border-b border-gray-500 my-4" />
 
-            <div className="h-96 overflow-y-auto p-2 pr-4 bg-gray-950 rounded">
+            <div className="max-h-96 overflow-y-auto p-2 pr-4 bg-gray-950 rounded">
               <ApiKeyList />
             </div>
             <div className="border-b border-gray-500 my-4" />
@@ -27,7 +27,7 @@ export default function Home() {
 
           <main className="col-span-2">
             {/* Main area */}
-            <div className="h-72 overflow-y-auto p-2 pr-4 bg-gray-950 rounded">
+            <div className="max-h-72 overflow-y-auto p-2 pr-4 bg-gray-950 rounded">
               <TransactionList />
             </div>
             <div className="border-b border-gray-500 my-4" />
@@ -44,7 +44,7 @@ export default function Home() {
             <Metrics />
             <div className="border-b border-gray-500 my-4" />
 
-            <div className="h-72 overflow-y-auto p-2 pr-4 bg-gray-950 rounded">
+            <div className="max-h-72 overflow-y-auto p-2 pr-4 bg-gray-950 rounded">
               <ReportList />
             </div>
             <div className="border-b border-gray-500 my-4" />
@@ -57,7 +57,7 @@ export default function Home() {
             </div>
             <div className="border-b border-gray-500 my-4" />
 
-            <div className="h-48 overflow-y-auto p-2 pr-4 bg-gray-950 rounded">
+            <div className="max-h-48 overflow-y-auto p-2 pr-4 bg-gray-950 rounded">
               <Terminal />
             </div>
             <div className="border-b border-gray-500 my-4" />
