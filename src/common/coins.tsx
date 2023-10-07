@@ -175,8 +175,8 @@ function Modal() {
                         You can{" "}
                         {ui.selectedTokenId == 0
                           ? "add a new token"
-                          : "edit this token"}{" "}
-                        to track here.
+                          : `edit token with ID ${ui.selectedTokenId}`}{" "}
+                        here.
                       </p>
                       <div className="mt-2">
                         <input
