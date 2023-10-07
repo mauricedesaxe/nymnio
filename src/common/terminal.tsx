@@ -9,7 +9,7 @@ function Terminal() {
   const logs = logs$.use();
 
   return (
-    <details open>
+    <details>
       <summary className="cursor-pointer rounded hover:bg-gray-900">
         <h2 className="inline-block text-2xl font-semibold">
           Step 4. See live logs.
