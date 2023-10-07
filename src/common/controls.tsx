@@ -5,11 +5,19 @@ import {
   normalTxSchema,
   erc20TxSchema,
 } from "@/utils/fetch";
-import { addresses$, networks$, logs$, transactions$ } from "@/utils/store";
+import {
+  addresses$,
+  networks$,
+  logs$,
+  transactions$,
+  isTxLoading$,
+} from "@/utils/store";
 import { z } from "zod";
 
 function Controls() {
   async function handleGetTransactions() {
+    isTxLoading$.set(true);
+
     logs$.set((logs) => [
       ...logs,
       `[${new Date()}] Starting to fetch transactions`,
@@ -41,6 +49,7 @@ function Controls() {
         ...logs,
         `[${new Date()}] No valid addresses found`,
       ]);
+      isTxLoading$.set(false);
       return;
     }
 
@@ -116,6 +125,7 @@ function Controls() {
           });
         }
       }
+      isTxLoading$.set(false);
     }
 
     // sort the transactions by timestamp; newest first

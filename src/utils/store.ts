@@ -107,4 +107,14 @@ persistObservable(ui$, {
   local: "ui", // Unique name
 });
 
-export { addresses$, logs$, networks$, transactions$, tokens$, ui$ };
+const isTxLoading$ = observable(false);
+
+export {
+  addresses$,
+  logs$,
+  networks$,
+  transactions$,
+  tokens$,
+  ui$,
+  isTxLoading$,
+};
