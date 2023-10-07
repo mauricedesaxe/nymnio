@@ -1,6 +1,6 @@
 "use client";
 
-import { addresses$, transactions$ } from "@/utils/store";
+import { addresses$, networks$, transactions$ } from "@/utils/store";
 import { enableReactUse } from "@legendapp/state/config/enableReactUse";
 
 enableReactUse(); // This adds the use() function to observables
@@ -8,6 +8,7 @@ enableReactUse(); // This adds the use() function to observables
 function TransactionList() {
   const transactions = transactions$.use();
   const addresses = addresses$.use();
+  const networks = networks$.use();
 
   return (
     <div>
@@ -61,7 +62,10 @@ function TransactionList() {
                 </div>
               </div>
               <a
-                href={transaction.hash}
+                href={`${
+                  networks.find((n) => n.name === transaction.network)
+                    ?.blockExplorer
+                }/tx/${transaction.hash}`}
                 className="rounded-full bg-gray-800 px-2.5 py-1 text-xs font-semibold text-gray-200 shadow-sm ring-1 ring-inset ring-gray-700 hover:bg-gray-700"
               >
                 View
