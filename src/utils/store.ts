@@ -10,6 +10,9 @@ const logs$ = observable([""]);
 const networks$ = observable([
   {
     name: "Ethereum",
+    tokenName: "Ether",
+    tokenSymbol: "ETH",
+    tokenDecimal: "18",
     id: 1,
     api: "https://api.etherscan.io/api",
     key: "",
@@ -17,6 +20,9 @@ const networks$ = observable([
   },
   {
     name: "Polygon",
+    tokenName: "Matic",
+    tokenSymbol: "MATIC",
+    tokenDecimal: "18",
     id: 137,
     api: "https://api.polygonscan.com/api",
     key: "",
@@ -24,6 +30,9 @@ const networks$ = observable([
   },
   {
     name: "BSC",
+    tokenName: "BNB",
+    tokenSymbol: "BNB",
+    tokenDecimal: "18",
     id: 56,
     api: "https://api.bscscan.com/api",
     key: "",
