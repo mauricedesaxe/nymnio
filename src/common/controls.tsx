@@ -89,7 +89,7 @@ function Controls() {
             const tokensERC20Tx = await fetchERC20Transactions(
               `${network.api}?apikey=${network.key}`,
               address.address,
-              333,
+              500,
               token.address
             );
             localERC20Tx = [...localERC20Tx, ...tokensERC20Tx];
