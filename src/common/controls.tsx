@@ -86,12 +86,13 @@ function Controls() {
         let localERC20Tx: z.infer<typeof erc20TxSchema>[] = [];
         for (const token of tokens) {
           try {
-            localERC20Tx = await fetchERC20Transactions(
+            const tokensERC20Tx = await fetchERC20Transactions(
               `${network.api}?apikey=${network.key}`,
               address.address,
               333,
               token.address
             );
+            localERC20Tx = [...localERC20Tx, ...tokensERC20Tx];
           } catch (e) {
             console.log(
               `[${new Date()}] Error fetching ERC20 transactions: `,
