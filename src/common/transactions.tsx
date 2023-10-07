@@ -47,15 +47,14 @@ function TransactionList() {
                       : transaction.to}
                   </p>
                   <p className="mt-1 truncate text-xs leading-5 text-gray-500">
-                    {transaction.value} USD
+                    {parseInt(transaction.value) /
+                      10 ** parseInt(transaction.tokenDecimal)}{" "}
+                    {transaction.tokenSymbol}
                   </p>
                   <p className="mt-1 truncate text-xs leading-5 text-gray-500">
                     {new Date(
                       parseInt(transaction.timeStamp) * 1000
                     ).toUTCString()}
-                  </p>
-                  <p className="mt-1 truncate text-xs leading-5 text-gray-500">
-                    {transaction.tokenName} ({transaction.tokenSymbol})
                   </p>
                 </div>
               </div>
