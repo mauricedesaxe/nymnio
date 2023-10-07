@@ -11,6 +11,7 @@ import {
   logs$,
   transactions$,
   isTxLoading$,
+  tokens$,
 } from "@/utils/store";
 import { z } from "zod";
 
@@ -25,6 +26,7 @@ function Controls() {
 
     const addresses = addresses$.get();
     const networks = networks$.get();
+    const tokens = tokens$.get();
 
     const transactions: {
       timeStamp: string;
@@ -80,17 +82,24 @@ function Controls() {
 
         // then get ERC20 transactions
         let localERC20Tx: z.infer<typeof erc20TxSchema>[] = [];
-        try {
-          localERC20Tx = await fetchERC20Transactions(
-            `${network.api}?apikey=${network.key}`,
-            address.address
-          );
-        } catch (e) {
-          console.log(`[${new Date()}] Error fetching ERC20 transactions: `, e);
-          logs$.set((logs) => [
-            ...logs,
-            `[${new Date()}] Error fetching ERC20 transactions: ${e}`,
-          ]);
+        for (const token of tokens) {
+          try {
+            localERC20Tx = await fetchERC20Transactions(
+              `${network.api}?apikey=${network.key}`,
+              address.address,
+              333,
+              token.address
+            );
+          } catch (e) {
+            console.log(
+              `[${new Date()}] Error fetching ERC20 transactions: `,
+              e
+            );
+            logs$.set((logs) => [
+              ...logs,
+              `[${new Date()}] Error fetching ERC20 transactions: ${e}`,
+            ]);
+          }
         }
 
         // standardize & merge the two into the transactions array
