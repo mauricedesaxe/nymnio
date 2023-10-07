@@ -88,6 +88,7 @@ function CoinList() {
                 ...ui,
                 openTokenModal: true,
                 selectedTokenId: 0,
+                selectedNetworkId: network.id,
               }));
             }}
           >
@@ -113,7 +114,7 @@ function Modal() {
 
   const [formToken, setFormToken] = useState({
     id: 0,
-    network: "",
+    network: networks.find((n) => n.id == ui.selectedNetworkId)?.name || "",
     address: "",
     decimals: "",
     name: "",
@@ -128,7 +129,7 @@ function Modal() {
     } else {
       setFormToken({
         id: 0,
-        network: "",
+        network: networks.find((n) => n.id == ui.selectedNetworkId)?.name || "",
         address: "",
         decimals: "",
         name: "",

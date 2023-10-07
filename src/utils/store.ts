@@ -82,6 +82,7 @@ const tokens$ = observable([
 const ui$ = observable({
   openTokenModal: false,
   selectedTokenId: 0,
+  selectedNetworkId: 0,
 });
 
 configureObservablePersistence({
