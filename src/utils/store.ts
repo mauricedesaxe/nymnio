@@ -55,6 +55,7 @@ const transactions$ = observable([
 ]);
 const tokens$ = observable([
   {
+    id: 1,
     symbol: "USDC",
     name: "USD Coin",
     decimals: "6",
@@ -62,6 +63,7 @@ const tokens$ = observable([
     network: "Ethereum",
   },
   {
+    id: 2,
     symbol: "USDT",
     name: "Tether USD",
     decimals: "6",
@@ -69,6 +71,7 @@ const tokens$ = observable([
     network: "Ethereum",
   },
   {
+    id: 3,
     symbol: "DAI",
     name: "Dai Stablecoin",
     decimals: "18",
@@ -78,8 +81,7 @@ const tokens$ = observable([
 ]);
 const ui$ = observable({
   openTokenModal: false,
-  selectedNetwork: "",
-  selectedToken: "",
+  selectedTokenId: 0,
 });
 
 configureObservablePersistence({

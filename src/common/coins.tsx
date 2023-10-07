@@ -59,8 +59,7 @@ function CoinList() {
                         ui$.set((ui) => ({
                           ...ui,
                           openTokenModal: true,
-                          selectedNetwork: network.name,
-                          selectedToken: token.address,
+                          selectedTokenId: token.id,
                         }));
                       }}
                     >
@@ -90,8 +89,7 @@ function CoinList() {
               ui$.set((ui) => ({
                 ...ui,
                 openTokenModal: true,
-                selectedNetwork: network.name,
-                selectedToken: "",
+                selectedTokenId: 0,
               }));
             }}
           >
@@ -112,35 +110,25 @@ function Modal() {
   const cancelButtonRef = useRef(null);
 
   const ui = ui$.use();
+  const tokens = tokens$.use();
+  const networks = networks$.use();
 
-  const defaultToken = {
-    network: ui.selectedNetwork,
-    address: ui.selectedToken,
+  const [formToken, setFormToken] = useState({
+    id: 0,
+    network: "",
+    address: "",
     decimals: "",
     name: "",
     symbol: "",
-  };
-
-  const networks = networks$.use();
-  const tokens = tokens$.use();
-  const [token, setToken] = useState(defaultToken);
+  });
 
   useEffect(() => {
-    const newToken = networks.map((network) => {
-      if (network.name !== ui.selectedNetwork) return defaultToken;
-      const localTokens = tokens?.filter(
-        (token) => token.network === network.name
-      );
-      if (!localTokens) return defaultToken;
-      const token = localTokens?.find(
-        (token) => token.address === ui.selectedToken
-      );
-      if (!token) return defaultToken;
-      return token;
-    })[0];
-
-    setToken(newToken);
-  }, [networks, ui]);
+    if (ui.selectedTokenId != 0) {
+      const selectedToken = tokens.find((t) => t.id == ui.selectedTokenId);
+      if (!selectedToken) return;
+      setFormToken(selectedToken);
+    }
+  }, [tokens, ui]);
 
   return (
     <Transition.Root show={ui.openTokenModal} as={Fragment}>
@@ -180,16 +168,15 @@ function Modal() {
                       as="h3"
                       className="text-base font-semibold leading-6 text-white"
                     >
-                      {token.name == "" ? "Add token" : "Edit token"} on{" "}
-                      {token.network || "NaN"}
+                      {formToken.name == "" ? "Add token" : "Edit token"}
                     </Dialog.Title>
                     <div className="mt-2">
                       <p className="text-sm text-gray-400">
                         You can{" "}
-                        {token.name == ""
+                        {ui.selectedTokenId == 0
                           ? "add a new token"
                           : "edit this token"}{" "}
-                        on {token.network || "NaN"} to track here.
+                        to track here.
                       </p>
                       <div className="mt-2">
                         <input
@@ -197,9 +184,9 @@ function Modal() {
                           name="name"
                           placeholder="Token Name"
                           className="mt-2 border border-gray-300 rounded-md w-full px-3 py-2 bg-gray-800 text-white"
-                          value={token.name}
+                          value={formToken.name}
                           onChange={(e) =>
-                            setToken({ ...token, name: e.target.value })
+                            setFormToken({ ...formToken, name: e.target.value })
                           }
                         />
                         <input
@@ -207,9 +194,12 @@ function Modal() {
                           name="symbol"
                           placeholder="Token Symbol"
                           className="mt-2 border border-gray-300 rounded-md w-full px-3 py-2 bg-gray-800 text-white"
-                          value={token.symbol}
+                          value={formToken.symbol}
                           onChange={(e) =>
-                            setToken({ ...token, symbol: e.target.value })
+                            setFormToken({
+                              ...formToken,
+                              symbol: e.target.value,
+                            })
                           }
                         />
                         <input
@@ -217,9 +207,12 @@ function Modal() {
                           name="address"
                           placeholder="Token Address"
                           className="mt-2 border border-gray-300 rounded-md w-full px-3 py-2 bg-gray-800 text-white"
-                          value={token.address}
+                          value={formToken.address}
                           onChange={(e) =>
-                            setToken({ ...token, address: e.target.value })
+                            setFormToken({
+                              ...formToken,
+                              address: e.target.value,
+                            })
                           }
                         />
                         <input
@@ -227,11 +220,32 @@ function Modal() {
                           name="decimals"
                           placeholder="Token Decimals"
                           className="mt-2 border border-gray-300 rounded-md w-full px-3 py-2 bg-gray-800 text-white"
-                          value={token.decimals}
+                          value={formToken.decimals}
                           onChange={(e) =>
-                            setToken({ ...token, decimals: e.target.value })
+                            setFormToken({
+                              ...formToken,
+                              decimals: e.target.value,
+                            })
                           }
                         />
+                        <select
+                          name="network"
+                          className="mt-2 border border-gray-300 rounded-md w-full px-3 py-2 bg-gray-800 text-white"
+                          value={formToken.network}
+                          onChange={(e) =>
+                            setFormToken({
+                              ...formToken,
+                              network: e.target.value,
+                            })
+                          }
+                        >
+                          <option value="">Select Network</option>
+                          {networks.map((network) => (
+                            <option key={network.id} value={network.name}>
+                              {network.name}
+                            </option>
+                          ))}
+                        </select>
                       </div>
                     </div>
                   </div>
@@ -242,34 +256,30 @@ function Modal() {
                     className="inline-flex w-full justify-center rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 sm:col-start-2"
                     onClick={() => {
                       // validate token input
-                      if (token.name == "") {
+                      if (formToken.name == "") {
                         alert("Token name is required");
                         return;
                       }
-                      if (token.symbol == "") {
+                      if (formToken.symbol == "") {
                         alert("Token symbol is required");
                         return;
                       }
-                      if (token.decimals == "") {
+                      if (formToken.decimals == "") {
                         alert("Token decimals is required");
                         return;
                       }
-                      if (token.address == "") {
+                      if (formToken.address == "") {
                         alert("Token address is required");
                         return;
                       }
-                      if (!ethers.isAddress(token.address)) {
+                      if (!ethers.isAddress(formToken.address)) {
                         // alert("Invalid EVM address");
                         // return;
                       }
 
-                      // Find the index of the token based on address and network
+                      // Find the index of the token
                       const tokenIndex = tokens.findIndex(
-                        (t) =>
-                          t.address.toLowerCase() ===
-                            token.address.toLowerCase() &&
-                          t.network.toLowerCase() ===
-                            ui.selectedNetwork.toLowerCase()
+                        (t) => t.id === formToken.id
                       );
 
                       // Create a new array for tokens
@@ -277,10 +287,10 @@ function Modal() {
 
                       // If a token is found, edit it with the new data
                       if (tokenIndex !== -1) {
-                        newTokens[tokenIndex] = token;
+                        newTokens[tokenIndex] = formToken;
                       } else {
                         // If no token is found, add the new data as a new token
-                        newTokens.push(token);
+                        newTokens.push(formToken);
                       }
 
                       // set the new tokens
