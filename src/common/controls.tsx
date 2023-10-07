@@ -139,21 +139,31 @@ function Controls() {
       }
     }
 
+    // remove duplicates, preferring ERC20 transactions
+    const hashSet = new Set();
+    const filteredTx = transactions.filter((tx) => {
+      if (!hashSet.has(tx.hash) || tx.type === "erc20") {
+        hashSet.add(tx.hash);
+        return true;
+      }
+      return false;
+    });
+
     // sort the transactions by timestamp; newest first
-    transactions.sort((a, b) => parseInt(b.timeStamp) - parseInt(a.timeStamp));
+    filteredTx.sort((a, b) => parseInt(b.timeStamp) - parseInt(a.timeStamp));
 
     // log a few things
-    console.log("transactions", transactions);
+    console.log("transactions", filteredTx);
     logs$.set((logs) => [
       ...logs,
-      `[${new Date()}] Fetched ${transactions.length} transactions`,
+      `[${new Date()}] Fetched ${filteredTx.length} transactions`,
     ]);
 
     // store the transactions
-    transactions$.set(transactions);
+    transactions$.set(filteredTx);
     logs$.set((logs) => [
       ...logs,
-      `[${new Date()}] Stored ${transactions.length} transactions`,
+      `[${new Date()}] Stored ${filteredTx.length} transactions`,
     ]);
 
     isTxLoading$.set(false);
