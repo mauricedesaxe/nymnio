@@ -136,7 +136,6 @@ function Controls() {
           });
         }
       }
-      isTxLoading$.set(false);
     }
 
     // sort the transactions by timestamp; newest first
@@ -155,6 +154,8 @@ function Controls() {
       ...logs,
       `[${new Date()}] Stored ${transactions.length} transactions`,
     ]);
+
+    isTxLoading$.set(false);
   }
 
   return (
