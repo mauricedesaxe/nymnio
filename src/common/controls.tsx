@@ -5,7 +5,7 @@ import {
   normalTxSchema,
   erc20TxSchema,
 } from "@/utils/fetch";
-import { addresses$, networks$, logs$ } from "@/utils/store";
+import { addresses$, networks$, logs$, transactions$ } from "@/utils/store";
 import { z } from "zod";
 
 function Controls() {
@@ -78,8 +78,49 @@ function Controls() {
       }
     }
 
-    // store the data
-    const mergedTransactions = [...normalTx, ...ERC20Tx];
+    // merge the transactions in a unified interface
+    const mergedTransactions: {
+      timeStamp: string;
+      hash: string;
+      from: string;
+      to: string;
+      value: string;
+      contractAddress: string;
+      tokenName: string;
+      tokenSymbol: string;
+      tokenDecimal: string;
+      network: string;
+    }[] = [];
+    for (const tx of normalTx) {
+      mergedTransactions.push({
+        timeStamp: tx.timeStamp,
+        hash: tx.hash,
+        from: tx.from,
+        to: tx.to,
+        value: tx.value,
+        contractAddress: "",
+        tokenName: "Ether", // TODO Ether needs to be replaced with the native token name of the network
+        tokenSymbol: "ETH", // TODO ETH needs to be replaced with the native token symbol of the network
+        tokenDecimal: "18",
+        network: "Ethereum", // TODO needs extracted from the network
+      });
+    }
+    for (const tx of ERC20Tx) {
+      mergedTransactions.push({
+        timeStamp: tx.timeStamp,
+        hash: tx.hash,
+        from: tx.from,
+        to: tx.to,
+        value: tx.value,
+        contractAddress: tx.contractAddress,
+        tokenName: tx.tokenName,
+        tokenSymbol: tx.tokenSymbol,
+        tokenDecimal: tx.tokenDecimal,
+        network: "Ethereum", // TODO needs extracted from the network
+      });
+    }
+
+    // log a few things
     console.log("mergedTransactions", mergedTransactions);
     logs$.set((logs) => [
       ...logs,
@@ -89,7 +130,9 @@ function Controls() {
       ...logs,
       `[${new Date()}] Fetched ${ERC20Tx.length} ERC20 transactions`,
     ]);
-    // TODO store here
+
+    // store the transactions
+    transactions$.set(mergedTransactions);
     logs$.set((logs) => [
       ...logs,
       `[${new Date()}] Stored ${mergedTransactions.length} transactions`,
