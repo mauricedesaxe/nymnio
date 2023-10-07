@@ -1,7 +1,7 @@
 "use client";
 
 import { enableReactUse } from "@legendapp/state/config/enableReactUse";
-import { networks$, ui$ } from "@/utils/store";
+import { networks$, tokens$, ui$ } from "@/utils/store";
 import { ethers } from "ethers";
 import {
   PencilSquareIcon,
@@ -13,6 +13,7 @@ enableReactUse(); // This adds the use() function to observables
 
 function CoinList() {
   const networks = networks$.use();
+  const tokens = tokens$.use();
 
   return (
     <details>
@@ -41,51 +42,47 @@ function CoinList() {
           <div className="w-full my-2 border-b border-gray-300 text-white">
             {network.name}
           </div>
-          {network.tokens.map((token) => (
-            <div className="w-full mt-4" key={token.address}>
-              <div className="w-full flex border border-gray-300 rounded-md px-3 py-2 bg-gray-800 text-white">
-                {token.symbol} ({token.address.slice(0, 4)}...
-                {token.address.slice(-3)}){" "}
-                <div className="ml-auto flex">
-                  <button
-                    className="px-2 py-1 mx-1 bg-gray-900 hover:bg-gray-950 rounded font-medium"
-                    onClick={() => {
-                      console.log(
-                        `edit token ${token.symbol} on ${network.name}`
-                      );
-                      ui$.set((ui) => ({
-                        ...ui,
-                        openTokenModal: true,
-                        selectedNetwork: network.name,
-                        selectedToken: token.address,
-                      }));
-                    }}
-                  >
-                    <PencilSquareIcon className="w-4 h-4" />
-                  </button>
-                  <button
-                    className="px-2 py-1 mx-1 bg-gray-900 hover:bg-gray-950 rounded font-medium"
-                    onClick={() => {
-                      networks$.set((networks) =>
-                        networks.map((n) =>
-                          n.name === network.name
-                            ? {
-                                ...n,
-                                tokens: n.tokens.filter(
-                                  (t) => t.address !== token.address
-                                ),
-                              }
-                            : n
-                        )
-                      );
-                    }}
-                  >
-                    <XMarkIcon className="w-4 h-4" />
-                  </button>
+          {tokens
+            .filter((token) => token.network == network.name)
+            .map((token) => (
+              <div className="w-full mt-4" key={token.address}>
+                <div className="w-full flex border border-gray-300 rounded-md px-3 py-2 bg-gray-800 text-white">
+                  {token.symbol} ({token.address.slice(0, 4)}...
+                  {token.address.slice(-3)}){" "}
+                  <div className="ml-auto flex">
+                    <button
+                      className="px-2 py-1 mx-1 bg-gray-900 hover:bg-gray-950 rounded font-medium"
+                      onClick={() => {
+                        console.log(
+                          `edit token ${token.symbol} on ${network.name}`
+                        );
+                        ui$.set((ui) => ({
+                          ...ui,
+                          openTokenModal: true,
+                          selectedNetwork: network.name,
+                          selectedToken: token.address,
+                        }));
+                      }}
+                    >
+                      <PencilSquareIcon className="w-4 h-4" />
+                    </button>
+                    <button
+                      className="px-2 py-1 mx-1 bg-gray-900 hover:bg-gray-950 rounded font-medium"
+                      onClick={() => {
+                        console.log(
+                          `remove token ${token.symbol} on ${network.name}`
+                        );
+                        tokens$.set((tokens) =>
+                          tokens.filter((t) => t.address !== token.address)
+                        );
+                      }}
+                    >
+                      <XMarkIcon className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
           <button
             className="w-full px-2 py-1 my-1 bg-gray-950 hover:bg-gray-800 rounded font-medium flex justify-center items-center"
             onClick={() => {
@@ -125,14 +122,19 @@ function Modal() {
   };
 
   const networks = networks$.use();
+  const tokens = tokens$.use();
   const [token, setToken] = useState(defaultToken);
 
   useEffect(() => {
     const newToken = networks.map((network) => {
       if (network.name !== ui.selectedNetwork) return defaultToken;
-      const tokens = network.tokens;
-      if (!tokens) return defaultToken;
-      const token = tokens?.find((token) => token.address === ui.selectedToken);
+      const localTokens = tokens?.filter(
+        (token) => token.network === network.name
+      );
+      if (!localTokens) return defaultToken;
+      const token = localTokens?.find(
+        (token) => token.address === ui.selectedToken
+      );
       if (!token) return defaultToken;
       return token;
     })[0];
@@ -248,6 +250,10 @@ function Modal() {
                         alert("Token symbol is required");
                         return;
                       }
+                      if (token.decimals == "") {
+                        alert("Token decimals is required");
+                        return;
+                      }
                       if (token.address == "") {
                         alert("Token address is required");
                         return;
@@ -257,32 +263,31 @@ function Modal() {
                         // return;
                       }
 
-                      // Check if the token already exists in the network
-                      const networkIndex = networks.findIndex(
-                        (network) => network.name === token.network
+                      // Find the index of the token based on address and network
+                      const tokenIndex = tokens.findIndex(
+                        (t) =>
+                          t.address.toLowerCase() ===
+                            token.address.toLowerCase() &&
+                          t.network.toLowerCase() ===
+                            ui.selectedNetwork.toLowerCase()
                       );
-                      if (networkIndex === -1) {
-                        alert("Network not found");
-                        return;
-                      }
 
-                      // Create a copy of the networks array to avoid modifying the existing constant
-                      const updatedNetworks = [...networks];
+                      // Create a new array for tokens
+                      const newTokens = [...tokens];
 
-                      // Check if the token already exists in the network's token list
-                      const tokenIndex = updatedNetworks[
-                        networkIndex
-                      ].tokens.findIndex((t) => t.address === token.address);
+                      // If a token is found, edit it with the new data
                       if (tokenIndex !== -1) {
-                        updatedNetworks[networkIndex].tokens[tokenIndex] =
-                          token;
+                        newTokens[tokenIndex] = token;
                       } else {
-                        updatedNetworks[networkIndex].tokens.push(token);
+                        // If no token is found, add the new data as a new token
+                        newTokens.push(token);
                       }
 
-                      // Save the updated networks array and close the modal
+                      // set the new tokens
+                      tokens$.set(newTokens);
+
+                      // close the modal
                       ui$.set((ui) => ({ ...ui, openTokenModal: false }));
-                      networks$.set(updatedNetworks);
                     }}
                   >
                     Save
