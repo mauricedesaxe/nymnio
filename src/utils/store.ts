@@ -17,6 +17,26 @@ const networks$ = observable([
     api: "https://api.etherscan.io/api",
     key: "",
     blockExplorer: "https://etherscan.io",
+    tokens: [
+      {
+        symbol: "USDC",
+        name: "USD Coin",
+        decimals: "6",
+        address: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+      },
+      {
+        symbol: "USDT",
+        name: "Tether USD",
+        decimals: "6",
+        address: "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+      },
+      {
+        symbol: "DAI",
+        name: "Dai Stablecoin",
+        decimals: "18",
+        address: "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+      },
+    ],
   },
   {
     name: "Polygon",
@@ -27,6 +47,7 @@ const networks$ = observable([
     api: "https://api.polygonscan.com/api",
     key: "",
     blockExplorer: "https://polygonscan.com",
+    tokens: [],
   },
   {
     name: "BSC",
@@ -37,6 +58,7 @@ const networks$ = observable([
     api: "https://api.bscscan.com/api",
     key: "",
     blockExplorer: "https://bscscan.com",
+    tokens: [],
   },
 ]);
 const transactions$ = observable([
