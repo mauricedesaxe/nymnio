@@ -118,6 +118,9 @@ function Controls() {
       }
     }
 
+    // sort the transactions by timestamp; newest first
+    transactions.sort((a, b) => parseInt(b.timeStamp) - parseInt(a.timeStamp));
+
     // log a few things
     console.log("transactions", transactions);
     logs$.set((logs) => [
