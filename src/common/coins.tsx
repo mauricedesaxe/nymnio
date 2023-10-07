@@ -30,9 +30,7 @@ function CoinList() {
       <button
         className="my-2 p-2 bg-red-500 hover:bg-red-600 rounded font-medium"
         onClick={() => {
-          networks$.set((networks) =>
-            networks.map((network) => ({ ...network, tokens: [] }))
-          );
+          tokens$.set([]);
         }}
       >
         Clear coins
