@@ -11,11 +11,15 @@ function AddressList() {
   const addresses = addresses$.use();
 
   return (
-    <div>
-      <h2 className="text-2xl font-semibold">Step 1. Add addresses.</h2>
-      <p className="text-gray-400 text-sm">
-        Add the addresses you want to track. You can add as many as you want.
-      </p>
+    <details open>
+      <summary className="cursor-pointer rounded hover:bg-gray-900">
+        <h2 className="inline-block text-2xl font-semibold">
+          Step 1. Add addresses.
+        </h2>
+        <p className="text-gray-400 text-sm">
+          Add the addresses you want to track. You can add as many as you want.
+        </p>
+      </summary>
       <button
         className="mr-2 my-2 p-2 bg-blue-500 hover:bg-blue-600 rounded font-medium"
         onClick={() =>
@@ -70,7 +74,7 @@ function AddressList() {
           />
         </div>
       ))}
-    </div>
+    </details>
   );
 }
 

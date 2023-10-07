@@ -137,11 +137,15 @@ function Controls() {
   }
 
   return (
-    <div>
-      <h2 className="text-2xl font-semibold">3. Get data.</h2>
-      <p className="text-gray-400 text-sm">
-        You can use this panel to manage your data.
-      </p>
+    <details open>
+      <summary className="cursor-pointer rounded hover:bg-gray-900">
+        <h2 className="inline-block text-2xl font-semibold">
+          Step 3. Get data.
+        </h2>
+        <p className="text-gray-400 text-sm">
+          You can use this panel to manage your data.
+        </p>
+      </summary>
       <div>
         <button
           onClick={handleGetTransactions}
@@ -153,7 +157,7 @@ function Controls() {
           3. b. Process reports
         </button>
       </div>
-    </div>
+    </details>
   );
 }
 

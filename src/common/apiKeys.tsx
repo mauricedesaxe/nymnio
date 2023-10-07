@@ -9,12 +9,16 @@ function ApiKeyList() {
   const networks = networks$.use();
 
   return (
-    <div>
-      <h2 className="text-2xl font-semibold">Step 2. Add API Keys.</h2>
-      <p className="text-gray-400 text-sm">
-        We will use these API keys to fetch data about your addresses. Leave
-        them empty if you will, but you may run into rate limits.
-      </p>
+    <details open>
+      <summary className="cursor-pointer rounded hover:bg-gray-900">
+        <h2 className="inline-block text-2xl font-semibold">
+          Step 2. Add API Keys.
+        </h2>
+        <p className="text-gray-400 text-sm">
+          We will use these API keys to fetch data about your addresses. Leave
+          them empty if you will, but you may run into rate limits.
+        </p>
+      </summary>
       <button
         className="my-2 p-2 bg-red-500 hover:bg-red-600 rounded font-medium"
         onClick={() => {
@@ -63,7 +67,7 @@ function ApiKeyList() {
           />
         </div>
       ))}
-    </div>
+    </details>
   );
 }
 

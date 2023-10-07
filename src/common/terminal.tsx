@@ -9,11 +9,15 @@ function Terminal() {
   const logs = logs$.use();
 
   return (
-    <div>
-      <h2 className="text-2xl font-semibold">4. See live logs.</h2>
-      <p className="text-gray-400 text-sm">
-        This is the terminal. You can use it to see the logs and errors.
-      </p>
+    <details open>
+      <summary className="cursor-pointer rounded hover:bg-gray-900">
+        <h2 className="inline-block text-2xl font-semibold">
+          Step 4. See live logs.
+        </h2>
+        <p className="text-gray-400 text-sm">
+          This is the terminal. You can use it to see the logs and errors.
+        </p>
+      </summary>
       <button
         className="my-2 p-2 bg-red-500 hover:bg-red-600 rounded font-medium"
         onClick={() => logs$.set([`[${new Date()}] Cleared logs`])}
@@ -28,7 +32,7 @@ function Terminal() {
           </li>
         ))}
       </ul>
-    </div>
+    </details>
   );
 }
 
