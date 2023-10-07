@@ -54,7 +54,9 @@ function TransactionList() {
                   <p className="mt-1 truncate text-xs leading-5 text-gray-500">
                     {new Date(
                       parseInt(transaction.timeStamp) * 1000
-                    ).toUTCString()}
+                    ).toLocaleString()}{" "}
+                    (Timezone:{" "}
+                    {Intl.DateTimeFormat().resolvedOptions().timeZone})
                   </p>
                 </div>
               </div>
