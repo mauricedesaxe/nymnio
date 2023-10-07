@@ -38,7 +38,7 @@ function ReportList() {
 
   return (
     <div>
-      <h2 className="text-2xl font-semibold">Step 7. Read reports.</h2>
+      <h2 className="text-2xl font-semibold">Step 8. Read reports.</h2>
       <p className="text-gray-400 text-sm">
         See your reports in a single place. We will fetch these by using your
         API endpoints.

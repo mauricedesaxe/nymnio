@@ -140,7 +140,7 @@ function Controls() {
     <details open>
       <summary className="cursor-pointer rounded hover:bg-gray-900">
         <h2 className="inline-block text-2xl font-semibold">
-          Step 3. Get data.
+          Step 4. Get data.
         </h2>
         <p className="text-gray-400 text-sm">
           You can use this panel to manage your data.

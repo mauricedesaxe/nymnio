@@ -12,7 +12,7 @@ function Terminal() {
     <details>
       <summary className="cursor-pointer rounded hover:bg-gray-900">
         <h2 className="inline-block text-2xl font-semibold">
-          Step 4. See live logs.
+          Step 5. See live logs.
         </h2>
         <p className="text-gray-400 text-sm">
           This is the terminal. You can use it to see the logs and errors.

@@ -12,7 +12,7 @@ function TransactionList() {
 
   return (
     <div>
-      <h2 className="text-2xl font-semibold">Step 5. See transactions.</h2>
+      <h2 className="text-2xl font-semibold">Step 6. See transactions.</h2>
       <p className="text-gray-400 text-sm">
         See your transactions in a single place. We will fetch these by using
         your API endpoints.
