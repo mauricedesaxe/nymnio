@@ -1,12 +1,13 @@
 "use client";
 
-import { transactions$ } from "@/utils/store";
+import { addresses$, transactions$ } from "@/utils/store";
 import { enableReactUse } from "@legendapp/state/config/enableReactUse";
 
 enableReactUse(); // This adds the use() function to observables
 
 function TransactionList() {
   const transactions = transactions$.use();
+  const addresses = addresses$.use();
 
   return (
     <div>
@@ -25,7 +26,25 @@ function TransactionList() {
               <div className="flex min-w-0 gap-x-4">
                 <div className="min-w-0 flex-auto">
                   <p className="text-sm font-semibold leading-6 text-gray-200">
-                    {transaction.from} → {transaction.to}
+                    {addresses
+                      .map((a) => a.address.toLowerCase())
+                      .includes(transaction.from.toLowerCase())
+                      ? "you (" +
+                        transaction.from.slice(0, 6) +
+                        "..." +
+                        transaction.from.slice(-4) +
+                        ")"
+                      : transaction.from}{" "}
+                    →{" "}
+                    {addresses
+                      .map((a) => a.address.toLowerCase())
+                      .includes(transaction.to.toLowerCase())
+                      ? "you (" +
+                        transaction.to.slice(0, 6) +
+                        "..." +
+                        transaction.to.slice(-4) +
+                        ")"
+                      : transaction.to}
                   </p>
                   <p className="mt-1 truncate text-xs leading-5 text-gray-500">
                     {transaction.value} USD
