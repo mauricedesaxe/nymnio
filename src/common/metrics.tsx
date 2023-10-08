@@ -28,12 +28,32 @@ function Metrics() {
   return (
     <div>
       <div className="overflow-y-auto p-2 pr-4 bg-gray-950 rounded">
-        <h2 className="text-2xl font-semibold">Step 7. Read 90d metrics.</h2>
-        <p className="text-gray-400 text-sm">
-          See your metrics in a single place. These should provide you with a
-          overall picture of your financials.
-        </p>
+        <div className="flex justify-between items-start">
+          <div>
+            <h2 className="text-2xl font-semibold">
+              Step 7. Read 90d metrics.
+            </h2>
+            <p className="text-gray-400 text-sm">
+              See your metrics in a single place. These should provide you with
+              a overall picture of your financials.
+            </p>
+          </div>
+          <select
+            className="mt-2 w-24 border border-gray-300 rounded-md px-3 py-2 bg-gray-800 text-white"
+            value={ui.selectedTokenName}
+            onChange={(e) =>
+              metricsUi$.set({ selectedTokenName: e.target.value })
+            }
+          >
+            {Array.from(metrics.keys()).map((tokenName) => (
+              <option key={tokenName} value={tokenName}>
+                {tokenName}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
+
       <div className="bg-gray-950">
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-1 gap-px bg-white/5 sm:grid-cols-2 lg:grid-cols-4">
