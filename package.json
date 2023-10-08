@@ -15,6 +15,7 @@
     "@legendapp/state": "beta",
     "axios": "^1.5.1",
     "ethers": "^6.7.1",
+    "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.16.0",
