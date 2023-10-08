@@ -105,11 +105,25 @@ function Metrics() {
 export default Metrics;
 
 function formatValue(key: string, value: number) {
-  return key == "margin"
-    ? (value * 100).toFixed(1)
-    : value > 1_000
-    ? (value / 1_000).toFixed(1) + "k"
-    : value.toFixed(2);
+  if (key == "margin") {
+    return (value * 100).toFixed(1);
+  }
+  if (value > 10_000_000) {
+    return (value / 1_000_000).toFixed(0) + "m";
+  }
+  if (value > 1_000_000) {
+    return (value / 1_000_000).toFixed(1) + "m";
+  }
+  if (value > 10_000) {
+    return (value / 1_000).toFixed(0) + "k";
+  }
+  if (value > 1_000) {
+    return (value / 1_000).toFixed(1) + "k";
+  }
+  if (value > 10) {
+    return value.toFixed(0);
+  }
+  return value.toFixed(1);
 }
 
 function formatUnit(key: string, tokenName: string) {
