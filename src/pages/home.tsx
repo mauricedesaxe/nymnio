@@ -4,7 +4,6 @@ import CoinList from "@/common/coins";
 import Controls from "@/common/controls";
 import { AppInfo, CreatorInfo, DataInfo } from "@/common/info";
 import Metrics from "@/common/metrics";
-import ReportList from "@/common/reports";
 import Terminal from "@/common/terminal";
 import TransactionList from "@/common/transactions";
 
@@ -41,10 +40,10 @@ export default function Home() {
             <Metrics />
             <div className="border-b border-gray-500 my-4" />
 
-            <div className="max-h-72 overflow-y-auto p-2 pr-4 bg-gray-950 rounded">
+            {/* <div className="max-h-72 overflow-y-auto p-2 pr-4 bg-gray-950 rounded">
               <ReportList />
             </div>
-            <div className="border-b border-gray-500 my-4" />
+            <div className="border-b border-gray-500 my-4" /> */}
           </main>
 
           <aside className="col-span-1">
