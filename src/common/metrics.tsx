@@ -48,10 +48,12 @@ function Metrics() {
                   </p>
                   <p className="mt-2 flex items-baseline gap-x-2">
                     <span className="text-4xl font-semibold tracking-tight text-white">
-                      {value.toFixed(2)}
+                      {key == "margin"
+                        ? (value * 100).toFixed(1)
+                        : value.toFixed(2)}
                     </span>
                     <span className="text-sm font-gray-400">
-                      {ui.selectedTokenName}
+                      {key == "margin" ? "%" : ui.selectedTokenName}
                     </span>
                   </p>
                 </div>
