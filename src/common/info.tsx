@@ -36,7 +36,10 @@ function CreatorInfo() {
           Lazar Organization
         </a>
         . Source code at{" "}
-        <a className="text-blue-500 hover:underline" href="#">
+        <a
+          className="text-blue-500 hover:underline"
+          href="https://github.com/mauricedesaxe/nymnio"
+        >
           GitHub
         </a>
         .
