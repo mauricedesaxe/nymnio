@@ -77,6 +77,8 @@ function Metrics() {
                     <span className="text-4xl font-semibold tracking-tight text-white">
                       {key == "margin"
                         ? (value * 100).toFixed(1)
+                        : value > 1_000
+                        ? (value / 1_000).toFixed(1) + "k"
                         : value.toFixed(2)}
                     </span>
                     <span className="text-sm font-gray-400">
