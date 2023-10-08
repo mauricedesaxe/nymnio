@@ -87,14 +87,10 @@ function Metrics() {
                   </p>
                   <p className="mt-2 flex items-baseline gap-x-2">
                     <span className="text-4xl font-semibold tracking-tight text-white">
-                      {key == "margin"
-                        ? (value * 100).toFixed(1)
-                        : value > 1_000
-                        ? (value / 1_000).toFixed(1) + "k"
-                        : value.toFixed(2)}
+                      {formatValue(key, value)}
                     </span>
                     <span className="text-sm font-gray-400">
-                      {key == "margin" ? "%" : ui.selectedTokenName}
+                      {formatUnit(key, ui.selectedTokenName)}
                     </span>
                   </p>
                 </div>
@@ -107,3 +103,15 @@ function Metrics() {
 }
 
 export default Metrics;
+
+function formatValue(key: string, value: number) {
+  return key == "margin"
+    ? (value * 100).toFixed(1)
+    : value > 1_000
+    ? (value / 1_000).toFixed(1) + "k"
+    : value.toFixed(2);
+}
+
+function formatUnit(key: string, tokenName: string) {
+  return key == "margin" ? "%" : tokenName;
+}
