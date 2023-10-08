@@ -79,7 +79,7 @@ const tokens$ = observable([
     network: "Ethereum",
   },
 ]);
-const ui$ = observable({
+const coinUi$ = observable({
   openTokenModal: false,
   selectedTokenId: 0,
   selectedNetworkId: 0,
@@ -103,8 +103,8 @@ persistObservable(transactions$, {
 persistObservable(tokens$, {
   local: "tokens", // Unique name
 });
-persistObservable(ui$, {
-  local: "ui", // Unique name
+persistObservable(coinUi$, {
+  local: "coinUi", // Unique name
 });
 
 const isTxLoading$ = observable(false);
@@ -115,6 +115,6 @@ export {
   networks$,
   transactions$,
   tokens$,
-  ui$,
+  coinUi$,
   isTxLoading$,
 };

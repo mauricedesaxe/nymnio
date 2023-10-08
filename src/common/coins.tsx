@@ -1,7 +1,7 @@
 "use client";
 
 import { enableReactUse } from "@legendapp/state/config/enableReactUse";
-import { networks$, tokens$, ui$ } from "@/utils/store";
+import { networks$, tokens$, coinUi$ } from "@/utils/store";
 import { ethers } from "ethers";
 import {
   PencilSquareIcon,
@@ -54,7 +54,7 @@ function CoinList() {
                         console.log(
                           `edit token ${token.symbol} on ${network.name}`
                         );
-                        ui$.set((ui) => ({
+                        coinUi$.set((ui) => ({
                           ...ui,
                           openTokenModal: true,
                           selectedTokenId: token.id,
@@ -84,7 +84,7 @@ function CoinList() {
             className="w-full px-2 py-1 my-1 bg-gray-950 hover:bg-gray-800 rounded font-medium flex justify-center items-center"
             onClick={() => {
               console.log(`add token on ${network.name}`);
-              ui$.set((ui) => ({
+              coinUi$.set((ui) => ({
                 ...ui,
                 openTokenModal: true,
                 selectedTokenId: 0,
@@ -108,7 +108,7 @@ import { Dialog, Transition } from "@headlessui/react";
 function Modal() {
   const cancelButtonRef = useRef(null);
 
-  const ui = ui$.use();
+  const ui = coinUi$.use();
   const tokens = tokens$.use();
   const networks = networks$.use();
 
@@ -144,7 +144,7 @@ function Modal() {
         as="div"
         className="relative z-10"
         initialFocus={cancelButtonRef}
-        onClose={() => ui$.set((ui) => ({ ...ui, openTokenModal: false }))}
+        onClose={() => coinUi$.set((ui) => ({ ...ui, openTokenModal: false }))}
       >
         <Transition.Child
           as={Fragment}
@@ -305,7 +305,7 @@ function Modal() {
                       tokens$.set(newTokens);
 
                       // close the modal
-                      ui$.set((ui) => ({ ...ui, openTokenModal: false }));
+                      coinUi$.set((ui) => ({ ...ui, openTokenModal: false }));
                     }}
                   >
                     Save
@@ -314,7 +314,7 @@ function Modal() {
                     type="button"
                     className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-200 sm:col-start-1 sm:mt-0"
                     onClick={() =>
-                      ui$.set((ui) => ({ ...ui, openTokenModal: false }))
+                      coinUi$.set((ui) => ({ ...ui, openTokenModal: false }))
                     }
                     ref={cancelButtonRef}
                   >
