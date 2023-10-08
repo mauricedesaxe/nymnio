@@ -16,7 +16,8 @@ function ApiKeyList() {
         </h2>
         <p className="text-gray-400 text-sm">
           We will use these API keys to fetch data about your addresses. Leave
-          them empty if you will, but you may run into rate limits.
+          them empty if you will, but you may run into rate limits which can
+          cause missed transactions.
         </p>
       </summary>
       <button
