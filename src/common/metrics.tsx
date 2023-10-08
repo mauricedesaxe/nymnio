@@ -59,11 +59,12 @@ function Metrics() {
               metricsUi$.set({ ...ui, selectedTokenName: e.target.value })
             }
           >
-            {Array.from(metrics.keys()).map((tokenName) => (
-              <option key={tokenName} value={tokenName}>
-                {tokenName}
-              </option>
-            ))}
+            {Object.keys(metrics).length != 0 &&
+              Array.from(metrics.keys()).map((tokenName) => (
+                <option key={tokenName} value={tokenName}>
+                  {tokenName}
+                </option>
+              ))}
           </select>
         </div>
       </div>
