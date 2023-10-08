@@ -49,6 +49,8 @@ function Metrics() {
             <option value="90">90d</option>
             <option value="180">180d</option>
             <option value="365">365d</option>
+            <option value="730">2 years</option>
+            <option value="1095">3 years</option>
           </select>
           <select
             className="mt-2 w-24 border border-gray-300 rounded-md px-3 py-2 bg-gray-800 text-white"
