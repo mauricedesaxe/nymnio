@@ -84,27 +84,15 @@ const coinUi$ = observable({
   selectedTokenId: 0,
   selectedNetworkId: 0,
 });
-const metrics$ = observable(
-  new Map<
-    string,
-    {
-      revenue: number;
-      expenses: number;
-      profit: number;
-      margin: number;
-    }
-  >([
-    [
-      "ETH",
-      {
-        revenue: 0,
-        expenses: 0,
-        profit: 0,
-        margin: 0,
-      },
-    ],
-  ])
-);
+const metrics$ = observable([
+  {
+    token: "ETH",
+    revenue: 0,
+    expenses: 0,
+    profit: 0,
+    margin: 0,
+  },
+]);
 const metricsUi$ = observable({
   selectedTokenName: "ETH",
   selectedPeriod: 365,

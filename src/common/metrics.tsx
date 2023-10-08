@@ -12,6 +12,7 @@ function Metrics() {
   const isProcessLoading = isProcessLoading$.use();
 
   const [selectedMetric, setSelectedMetric] = useState<{
+    token: string;
     revenue: number;
     expenses: number;
     profit: number;
@@ -19,10 +20,7 @@ function Metrics() {
   }>();
 
   useEffect(() => {
-    if (Object.keys(metrics).length == 0) {
-      return;
-    }
-    setSelectedMetric(metrics.get(ui.selectedTokenName));
+    setSelectedMetric(metrics.find((m) => m.token == ui.selectedTokenName));
   }, [metrics, ui.selectedTokenName]);
 
   return (
@@ -59,10 +57,10 @@ function Metrics() {
               metricsUi$.set({ ...ui, selectedTokenName: e.target.value })
             }
           >
-            {Object.keys(metrics).length != 0 &&
-              Array.from(metrics.keys()).map((tokenName) => (
-                <option key={tokenName} value={tokenName}>
-                  {tokenName}
+            {metrics.length != 0 &&
+              metrics.map((token) => (
+                <option key={token.token} value={token.token}>
+                  {token.token}
                 </option>
               ))}
           </select>
@@ -80,24 +78,26 @@ function Metrics() {
             )}
             {!isProcessLoading &&
               selectedMetric &&
-              Object.entries(selectedMetric).map(([key, value]) => (
-                <div
-                  key={key}
-                  className="bg-gray-950 px-4 py-6 sm:px-6 lg:px-8"
-                >
-                  <p className="text-sm font-medium leading-6 text-gray-400">
-                    {key.charAt(0).toUpperCase() + key.slice(1).toLowerCase()}
-                  </p>
-                  <p className="mt-2 flex items-baseline gap-x-2">
-                    <span className="text-4xl font-semibold tracking-tight text-white">
-                      {formatValue(key, value)}
-                    </span>
-                    <span className="text-sm font-gray-400">
-                      {formatUnit(key, ui.selectedTokenName)}
-                    </span>
-                  </p>
-                </div>
-              ))}
+              Object.entries(selectedMetric)
+                .filter(([k]) => k != "token")
+                .map(([key, value]) => (
+                  <div
+                    key={key}
+                    className="bg-gray-950 px-4 py-6 sm:px-6 lg:px-8"
+                  >
+                    <p className="text-sm font-medium leading-6 text-gray-400">
+                      {key.charAt(0).toUpperCase() + key.slice(1).toLowerCase()}
+                    </p>
+                    <p className="mt-2 flex items-baseline gap-x-2">
+                      <span className="text-4xl font-semibold tracking-tight text-white">
+                        {formatValue(key, value as number)}
+                      </span>
+                      <span className="text-sm font-gray-400">
+                        {formatUnit(key, ui.selectedTokenName)}
+                      </span>
+                    </p>
+                  </div>
+                ))}
           </div>
         </div>
       </div>

@@ -90,8 +90,16 @@ function processMetrics(
   }
   console.log("metrics", metrics);
 
-  // return record of revenue, expenses, profit, margin for each network/tokenName pair
-  return metrics;
+  return Array.from(
+    metrics,
+    ([token, { revenue, expenses, profit, margin }]) => ({
+      token,
+      revenue,
+      expenses,
+      profit,
+      margin,
+    })
+  );
 }
 
 export { processMetrics };
