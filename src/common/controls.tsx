@@ -5,7 +5,7 @@ import {
   normalTxSchema,
   erc20TxSchema,
 } from "@/utils/fetch";
-import { process90dMetrics } from "@/utils/process";
+import { processMetrics } from "@/utils/process";
 import {
   addresses$,
   networks$,
@@ -190,7 +190,7 @@ function Controls() {
     isProcessLoading$.set(true);
     const transactions = transactions$.get();
     const metricsUi = metricsUi$.get();
-    const metrics = process90dMetrics(transactions, metricsUi.selectedPeriod);
+    const metrics = processMetrics(transactions, metricsUi.selectedPeriod);
     metrics$.set(metrics);
     isProcessLoading$.set(false);
   }

@@ -94,4 +94,4 @@ function processMetrics(
   return metrics;
 }
 
-export { processMetrics as process90dMetrics };
+export { processMetrics };
