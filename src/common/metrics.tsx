@@ -19,7 +19,7 @@ function Metrics() {
   }>();
 
   useEffect(() => {
-    if (!metrics) {
+    if (Object.keys(metrics).length == 0) {
       return;
     }
     setSelectedMetric(metrics.get(ui.selectedTokenName));
