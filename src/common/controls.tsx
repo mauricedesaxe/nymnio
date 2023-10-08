@@ -190,7 +190,7 @@ function Controls() {
     const transactions = transactions$.get();
     const metrics = process90dMetrics(transactions);
     metrics$.set(metrics);
-    isProcessLoading$.set(true);
+    isProcessLoading$.set(false);
   }
 
   return (
