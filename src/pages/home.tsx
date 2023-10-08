@@ -6,39 +6,8 @@ import { AppInfo, CreatorInfo, DataInfo } from "@/common/info";
 import Metrics from "@/common/metrics";
 import Terminal from "@/common/terminal";
 import TransactionList from "@/common/transactions";
-import { metrics$ } from "@/utils/store";
-import { useEffect } from "react";
 
 export default function Home() {
-  const metrics = metrics$.get();
-
-  useEffect(() => {
-    if (!metrics) {
-      metrics$.set(
-        new Map<
-          string,
-          {
-            revenue: number;
-            expenses: number;
-            profit: number;
-            margin: number;
-          }
-        >([
-          [
-            "ETH",
-            {
-              revenue: 0,
-              expenses: 0,
-              profit: 0,
-              margin: 0,
-            },
-          ],
-        ])
-      );
-    }
-    console.log(metrics);
-  }, [metrics]);
-
   return (
     <div className="flex min-h-full flex-col">
       <div className="mx-auto max-w-8xl sm:px-6 lg:px-8 px-4 py-10">
