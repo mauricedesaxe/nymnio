@@ -5,6 +5,7 @@ import {
   normalTxSchema,
   erc20TxSchema,
 } from "@/utils/fetch";
+import { process90dMetrics } from "@/utils/process";
 import {
   addresses$,
   networks$,
@@ -12,11 +13,14 @@ import {
   transactions$,
   isTxLoading$,
   tokens$,
+  metrics$,
+  isProcessLoading$,
 } from "@/utils/store";
 import { z } from "zod";
 
 function Controls() {
   const isTxLoading = isTxLoading$.use();
+  const isProcessLoading = isProcessLoading$.use();
 
   async function handleGetTransactions() {
     isTxLoading$.set(true);
@@ -181,6 +185,14 @@ function Controls() {
     isTxLoading$.set(false);
   }
 
+  async function handleProcessReports() {
+    isProcessLoading$.set(true);
+    const transactions = transactions$.get();
+    const metrics = process90dMetrics(transactions);
+    metrics$.set(metrics);
+    isProcessLoading$.set(true);
+  }
+
   return (
     <details open>
       <summary className="cursor-pointer rounded hover:bg-gray-900">
@@ -195,17 +207,22 @@ function Controls() {
         <button
           onClick={handleGetTransactions}
           className={`w-full mt-2 bg-blue-500 ${
-            isTxLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-700"
+            isTxLoading || isProcessLoading
+              ? "opacity-50 cursor-not-allowed"
+              : "hover:bg-blue-700"
           } text-white font-bold py-2 px-4 rounded`}
-          disabled={isTxLoading}
+          disabled={isTxLoading || isProcessLoading}
         >
           3. a. Get transactions
         </button>
         <button
+          onClick={handleProcessReports}
           className={`w-full mt-2 bg-blue-500 ${
-            isTxLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-700"
+            isTxLoading || isProcessLoading
+              ? "opacity-50 cursor-not-allowed"
+              : "hover:bg-blue-700"
           } text-white font-bold py-2 px-4 rounded`}
-          disabled={isTxLoading}
+          disabled={isTxLoading || isProcessLoading}
         >
           3. b. Process reports
         </button>

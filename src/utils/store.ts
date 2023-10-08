@@ -84,6 +84,30 @@ const coinUi$ = observable({
   selectedTokenId: 0,
   selectedNetworkId: 0,
 });
+const metrics$ = observable(
+  new Map<
+    string,
+    {
+      revenue: number;
+      expenses: number;
+      profit: number;
+      margin: number;
+    }
+  >([
+    [
+      "ETH",
+      {
+        revenue: 0,
+        expenses: 0,
+        profit: 0,
+        margin: 0,
+      },
+    ],
+  ])
+);
+const metricsUi$ = observable({
+  selectedTokenName: "ETH",
+});
 
 configureObservablePersistence({
   pluginLocal: ObservablePersistLocalStorage,
@@ -106,8 +130,15 @@ persistObservable(tokens$, {
 persistObservable(coinUi$, {
   local: "coinUi", // Unique name
 });
+persistObservable(metrics$, {
+  local: "metrics", // Unique name
+});
+persistObservable(metricsUi$, {
+  local: "metricsUi", // Unique name
+});
 
 const isTxLoading$ = observable(false);
+const isProcessLoading$ = observable(false);
 
 export {
   addresses$,
@@ -117,4 +148,7 @@ export {
   tokens$,
   coinUi$,
   isTxLoading$,
+  metrics$,
+  metricsUi$,
+  isProcessLoading$,
 };
