@@ -15,6 +15,7 @@ import {
   tokens$,
   metrics$,
   isProcessLoading$,
+  metricsUi$,
 } from "@/utils/store";
 import { z } from "zod";
 
@@ -188,7 +189,8 @@ function Controls() {
   async function handleProcessReports() {
     isProcessLoading$.set(true);
     const transactions = transactions$.get();
-    const metrics = process90dMetrics(transactions);
+    const metricsUi = metricsUi$.get();
+    const metrics = process90dMetrics(transactions, metricsUi.selectedPeriod);
     metrics$.set(metrics);
     isProcessLoading$.set(false);
   }

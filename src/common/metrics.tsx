@@ -31,7 +31,7 @@ function Metrics() {
         <div className="flex justify-between items-start">
           <div>
             <h2 className="text-2xl font-semibold">
-              Step 7. Read 90d metrics.
+              Step 7. Read {ui.selectedPeriod}d metrics.
             </h2>
             <p className="text-gray-400 text-sm">
               See your metrics in a single place. These should provide you with
@@ -39,10 +39,22 @@ function Metrics() {
             </p>
           </div>
           <select
+            className="mt-2 mr-2 w-24 border border-gray-300 rounded-md px-3 py-2 bg-gray-800 text-white"
+            value={ui.selectedPeriod}
+            onChange={(e) =>
+              metricsUi$.set({ ...ui, selectedPeriod: Number(e.target.value) })
+            }
+          >
+            <option value="30">30d</option>
+            <option value="90">90d</option>
+            <option value="180">180d</option>
+            <option value="365">365d</option>
+          </select>
+          <select
             className="mt-2 w-24 border border-gray-300 rounded-md px-3 py-2 bg-gray-800 text-white"
             value={ui.selectedTokenName}
             onChange={(e) =>
-              metricsUi$.set({ selectedTokenName: e.target.value })
+              metricsUi$.set({ ...ui, selectedTokenName: e.target.value })
             }
           >
             {Array.from(metrics.keys()).map((tokenName) => (

@@ -1,7 +1,7 @@
 import moment from "moment";
 import { addresses$ } from "./store";
 
-function process90dMetrics(
+function processMetrics(
   transactions: {
     timeStamp: string;
     hash: string;
@@ -13,11 +13,12 @@ function process90dMetrics(
     tokenSymbol: string;
     tokenDecimal: string;
     network: string;
-  }[]
+  }[],
+  period = 90
 ) {
   console.log("transactions", transactions);
-  // filter out any transactions not in the past 90d
-  const ninetyDaysAgo = moment().subtract(90, "days");
+  // filter out any transactions not in the past `period` days
+  const ninetyDaysAgo = moment().subtract(period, "days");
   transactions = transactions.filter((transaction) =>
     moment.unix(parseInt(transaction.timeStamp)).isAfter(ninetyDaysAgo)
   );
@@ -93,4 +94,4 @@ function process90dMetrics(
   return metrics;
 }
 
-export { process90dMetrics };
+export { processMetrics as process90dMetrics };
