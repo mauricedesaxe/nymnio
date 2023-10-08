@@ -87,6 +87,7 @@ function process90dMetrics(
     const margin = profit / revenue;
     metrics.set(tokenSymbol, { revenue, expenses, profit, margin });
   }
+  console.log("metrics", metrics);
 
   // return record of revenue, expenses, profit, margin for each network/tokenName pair
   return metrics;
