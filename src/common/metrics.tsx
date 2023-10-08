@@ -27,6 +27,13 @@ function Metrics() {
 
   return (
     <div>
+      <div className="overflow-y-auto p-2 pr-4 bg-gray-950 rounded">
+        <h2 className="text-2xl font-semibold">Step 7. Read 90d metrics.</h2>
+        <p className="text-gray-400 text-sm">
+          See your metrics in a single place. These should provide you with a
+          overall picture of your financials.
+        </p>
+      </div>
       <div className="bg-gray-950">
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-1 gap-px bg-white/5 sm:grid-cols-2 lg:grid-cols-4">

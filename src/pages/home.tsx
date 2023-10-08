@@ -38,15 +38,6 @@ export default function Home() {
             </div>
             <div className="border-b border-gray-500 my-4" />
 
-            <div className="overflow-y-auto p-2 pr-4 bg-gray-950 rounded">
-              <h2 className="text-2xl font-semibold">
-                Step 7. Read 90d metrics.
-              </h2>
-              <p className="text-gray-400 text-sm">
-                See your metrics in a single place. These should provide you
-                with a overall picture of your financials.
-              </p>
-            </div>
             <Metrics />
             <div className="border-b border-gray-500 my-4" />
 
