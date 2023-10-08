@@ -107,7 +107,7 @@ const metrics$ = observable(
 );
 const metricsUi$ = observable({
   selectedTokenName: "ETH",
-  selectedPeriod: 90,
+  selectedPeriod: 365,
 });
 
 configureObservablePersistence({
