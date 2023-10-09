@@ -42,6 +42,13 @@ function CreatorInfo() {
         >
           GitHub
         </a>
+        . Bugs and feature requests welcome at{" "}
+        <a
+          className="text-blue-500 hover:underline"
+          href="https://twitter.com/SaxeMauricede"
+        >
+          my twitter
+        </a>
         .
       </p>
     </div>
